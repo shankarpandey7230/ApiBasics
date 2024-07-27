@@ -6,6 +6,9 @@ import express from 'express';
 const app = express();
 
 const PORT = 8000;
+// make post data available in req.body
+
+app.use(express.json());
 
 let currDB = [
   {
@@ -23,7 +26,7 @@ let currDB = [
 app.get('/', (req, res) => {
   //   console.log('get server');
   console.log(req.query);
-  currDB.push(req.query);
+  //   currDB.push(req.query);
   res.json({
     message: 'hello',
     users: currDB,
@@ -31,17 +34,21 @@ app.get('/', (req, res) => {
 });
 app.post('/', (req, res) => {
   // console.log('get server');
+  //   console.log(req.body);
+  currDB.push(req.body);
   res.json({
-    message: 'hello from post',
+    message: 'new user added',
   });
 });
 app.put('/', (req, res) => {
-  // console.log('get server');
+  console.log(req.body, 'from put');
   res.json({
     message: 'hello from put',
   });
 });
 app.delete('/', (req, res) => {
+  console.log(req.body, 'from delete');
+
   // console.log('get server');
   res.json({
     message: 'hello from delete',
